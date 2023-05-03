@@ -9,5 +9,7 @@ public class GunData : ScriptableObject{
     public int pierce;
     public int mag;
     public float reloadSpeed;
+    public int projectileCount;
+    public float spread;
 
 }

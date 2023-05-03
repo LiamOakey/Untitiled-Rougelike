@@ -8,11 +8,13 @@ public class PlayerShooting : MonoBehaviour
     public GunData gun; //Gun that the character is using
     float fireRate; //how many times the character will shoot per second
     float bulletSpeed; // how fast bullet moves
-    float damage;
-    int pierce;
-    int mag;
-    int currentAmmo;
-    float reloadSpeed;
+    float damage; 
+    int pierce; //How many enemies shots will go through
+    int mag; //Max Ammo
+    int currentAmmo; 
+    int projectileCount; // Amount of projectiles fired per shot
+    float reloadSpeed; // time in seconds
+    float spread; //Random variation on the y axis for shots
 
     public bool canFire = true;
     public Transform firePoint; // The position where the projectile will be spawned
@@ -31,6 +33,8 @@ public class PlayerShooting : MonoBehaviour
         mag = gun.mag;
         currentAmmo = mag;
         reloadSpeed = gun.reloadSpeed;
+        projectileCount = gun.projectileCount;
+        spread = gun.spread;
 
     }
 
@@ -40,8 +44,9 @@ public class PlayerShooting : MonoBehaviour
 
         if (Input.GetMouseButton(0) && canFire) // Check if the fire button (left-click) is being pressed/held
         {
+
             if(currentAmmo>0){
-                Shoot(); // Call the Shoot method to spawn a projectile
+                Fire(); // Call the Shoot method to spawn a projectile
                 canFire = false;
                 Invoke("shotReset", fireRate); 
             }else{
@@ -52,10 +57,20 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    //Fire will be called when mouse is clicked, to manage how many time shoot will be called
+    void Fire(){
+        currentAmmo--;
+        for(int i=0; i<projectileCount;i++){
+            Shoot();
+        }
+    }
+
     void Shoot()
     {
-        currentAmmo--;
         Vector3 mousePosition = Input.mousePosition; // Get the mouse position in screen coordinates
+
+        //Shot spread
+        float shotSpread = Random.Range(-spread,spread);
         mousePosition.z = -mainCamera.transform.position.z; // Set the z-coordinate of the mouse position to be the same as the camera's z-coordinate
 
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // Convert the screen coordinates to world coordinates
@@ -63,14 +78,17 @@ public class PlayerShooting : MonoBehaviour
         Vector2 direction = (worldPosition - firePoint.position).normalized; // Calculate the direction from the fire point to the mouse position
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity); // Spawn a new projectile at the fire point
+        direction.y += shotSpread;
         projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed; // Set the velocity of the projectile to be in the direction of the mouse position
     }
 
     void shotReset(){
+        Debug.Log("reset");
         canFire = true;
     }
 
     void reload(){
+        Debug.Log("reload");
         currentAmmo = mag;
         canFire = true;
     }

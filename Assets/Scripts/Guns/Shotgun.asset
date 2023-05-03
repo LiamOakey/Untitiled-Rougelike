@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a114d6dd010f8b47ba87c12c7a8932c, type: 3}
-  m_Name: Sniper
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 5
   fireRate: 0.75
-  bulletSpeed: 25
-  pierce: 3
-  mag: 9
-  reloadSpeed: 2
-  projectileCount: 1
-  spread: 0
+  bulletSpeed: 15
+  pierce: 1
+  mag: 5
+  reloadSpeed: 3
+  projectileCount: 8
+  spread: 0.25
