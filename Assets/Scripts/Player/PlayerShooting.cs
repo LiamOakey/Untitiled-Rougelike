@@ -8,8 +8,8 @@ public class PlayerShooting : MonoBehaviour
     public GunData gun; //Gun that the character is using
     float fireRate; //how many times the character will shoot per second
     float bulletSpeed; // how fast bullet moves
-    float damage; 
-    int pierce; //How many enemies shots will go through
+    public float damage; 
+    public int pierce; //How many enemies shots will go through
     int mag; //Max Ammo
     int currentAmmo; 
     int projectileCount; // Amount of projectiles fired per shot
@@ -40,7 +40,6 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(canFire);
 
         if (Input.GetMouseButton(0) && canFire) // Check if the fire button (left-click) is being pressed/held
         {
@@ -83,12 +82,10 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void shotReset(){
-        Debug.Log("reset");
         canFire = true;
     }
 
     void reload(){
-        Debug.Log("reload");
         currentAmmo = mag;
         canFire = true;
     }
