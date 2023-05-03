@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump") && canDash){ //On pressing space
 
             if(rb.velocity.x != 0 || rb.velocity.y != 0){ //Must be moving to use dash
-                Debug.Log("bruh");
                 Dash();
             }
             

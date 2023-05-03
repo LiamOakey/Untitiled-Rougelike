@@ -4,34 +4,57 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public float fireRate = 4f;
+    // scriptable objects
+    public GunData gun; //Gun that the character is using
+    float fireRate; //how many times the character will shoot per second
+    float bulletSpeed; // how fast bullet moves
+    float damage;
+    int pierce;
+    int mag;
+    int currentAmmo;
+    float reloadSpeed;
+
     public bool canFire = true;
-    public float bulletSpeed = 15f;
     public Transform firePoint; // The position where the projectile will be spawned
     public GameObject projectilePrefab; // The projectile prefab to be spawned
 
     private Camera mainCamera; // The main camera in the scene
 
-    void Start()
-    {
+    void Awake()
+    { 
+        damage = gun.damage;
+        pierce = gun.pierce;
+        bulletSpeed = gun.bulletSpeed;
+        fireRate = gun.fireRate;
         fireRate = 1/fireRate;
         mainCamera = Camera.main; // Get the main camera in the scene
+        mag = gun.mag;
+        currentAmmo = mag;
+        reloadSpeed = gun.reloadSpeed;
+
     }
 
     void Update()
     {
-        
+        Debug.Log(canFire);
 
         if (Input.GetMouseButton(0) && canFire) // Check if the fire button (left-click) is being pressed/held
         {
-            Shoot(); // Call the Shoot method to spawn a projectile
-            canFire = false;
-            Invoke("shotReset", fireRate); 
+            if(currentAmmo>0){
+                Shoot(); // Call the Shoot method to spawn a projectile
+                canFire = false;
+                Invoke("shotReset", fireRate); 
+            }else{
+                canFire = false;
+                Invoke("reload",reloadSpeed);
+            }
+            
         }
     }
 
     void Shoot()
     {
+        currentAmmo--;
         Vector3 mousePosition = Input.mousePosition; // Get the mouse position in screen coordinates
         mousePosition.z = -mainCamera.transform.position.z; // Set the z-coordinate of the mouse position to be the same as the camera's z-coordinate
 
@@ -44,6 +67,11 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void shotReset(){
+        canFire = true;
+    }
+
+    void reload(){
+        currentAmmo = mag;
         canFire = true;
     }
 
