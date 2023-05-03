@@ -25,6 +25,7 @@ public class Bullet : MonoBehaviour
             if(pierce == 1){
                 destroy();
             }
+            pierce--;
         }
     }
 

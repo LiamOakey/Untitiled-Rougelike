@@ -29,7 +29,6 @@ public class EnemyBehavoir : MonoBehaviour
     }
 
     void ShowDamage(string damageText){
-        Debug.Log("BRUH");
         if(floatingDamageNumber){
             Vector3 variation = new Vector3(Random.Range(-0.5f,0.5f),-0.3f,0);
             GameObject prefab = Instantiate(floatingDamageNumber, transform.position+variation, Quaternion.identity);

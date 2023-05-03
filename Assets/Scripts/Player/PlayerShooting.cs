@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
+    public TextMeshProUGUI ammoText;
     // scriptable objects
     public GunData gun; //Gun that the character is using
     float fireRate; //how many times the character will shoot per second
@@ -35,6 +38,7 @@ public class PlayerShooting : MonoBehaviour
         reloadSpeed = gun.reloadSpeed;
         projectileCount = gun.projectileCount;
         spread = gun.spread;
+        ammoText.text = mag.ToString(); //set up ammo counter
 
     }
 
@@ -59,6 +63,7 @@ public class PlayerShooting : MonoBehaviour
     //Fire will be called when mouse is clicked, to manage how many time shoot will be called
     void Fire(){
         currentAmmo--;
+        ammoText.text = currentAmmo.ToString();//update ammo counter
         for(int i=0; i<projectileCount;i++){
             Shoot();
         }
@@ -88,6 +93,7 @@ public class PlayerShooting : MonoBehaviour
     void reload(){
         currentAmmo = mag;
         canFire = true;
+        ammoText.text = currentAmmo.ToString(); //update ammo counter
     }
 
 
