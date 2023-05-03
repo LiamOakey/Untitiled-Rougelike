@@ -19,8 +19,9 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log(damage);
         if(other.gameObject.tag == "Enemy"){
-            other.GetComponent<EnemyBehavoir>().takeDamage(10);
+            other.GetComponent<EnemyBehavoir>().takeDamage(damage);
             if(pierce == 1){
                 destroy();
             }

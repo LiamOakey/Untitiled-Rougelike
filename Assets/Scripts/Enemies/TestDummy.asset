@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb436b7b28739fc4db0a4f86b3f30e7a, type: 3}
-  m_Name: Grunt
+  m_Name: TestDummy
   m_EditorClassIdentifier: 
   damage: 0
-  health: 40
+  health: 100000000
