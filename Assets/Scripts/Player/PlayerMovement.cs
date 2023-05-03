@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool canDash = true;
+    public float dashTimer = 1f;
     public float speed = 5f;
     public float dashSpeed = 2.75f;
     bool dashing = false;
@@ -15,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update(){
 
-        if(Input.GetButtonDown("Jump")){ //On pressing space
+        if(Input.GetButtonDown("Jump") && canDash){ //On pressing space
 
             if(rb.velocity.x != 0 || rb.velocity.y != 0){ //Must be moving to use dash
                 Debug.Log("bruh");
@@ -35,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
 
     //Check keys and updates player velocity
     void movementHandler(){
+        if(rb.velocity.x < 0){
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        } else{
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementY = Input.GetAxisRaw("Vertical");
 
@@ -46,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash(){
         dashing = true;
+        canDash = false;
         speed = speed*dashSpeed;
         movementHandler();
         Invoke("ResetDash",0.3f);
@@ -54,5 +62,10 @@ public class PlayerMovement : MonoBehaviour
     void ResetDash(){
         dashing = false;
         speed = speed/dashSpeed;
+        Invoke("DashTimer", dashTimer);
+    }
+
+    void DashTimer(){
+        canDash = true;
     }
 }
