@@ -16,7 +16,7 @@ MonoBehaviour:
   fireRate: 7
   bulletSpeed: 15
   pierce: 1
-  mag: 1000
+  mag: 30
   reloadSpeed: 2
   projectileCount: 1
   spread: 0.09
