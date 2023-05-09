@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a114d6dd010f8b47ba87c12c7a8932c, type: 3}
   m_Name: Minigun
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 8
   fireRate: 15
   bulletSpeed: 20
   pierce: 1
@@ -20,3 +20,4 @@ MonoBehaviour:
   reloadSpeed: 4.5
   projectileCount: 1
   spread: 0.12
+  knockback: 1

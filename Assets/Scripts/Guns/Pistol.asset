@@ -20,3 +20,4 @@ MonoBehaviour:
   reloadSpeed: 1
   projectileCount: 1
   spread: 0.05
+  knockback: 3

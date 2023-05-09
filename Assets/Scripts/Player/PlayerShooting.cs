@@ -13,6 +13,7 @@ public class PlayerShooting : MonoBehaviour
     float bulletSpeed; // how fast bullet moves
     public float damage; 
     public int pierce; //How many enemies shots will go through
+    public float knockback; //amount of knockback delt to enemies
     int mag; //Max Ammo
     int currentAmmo; 
     int projectileCount; // Amount of projectiles fired per shot
@@ -38,6 +39,7 @@ public class PlayerShooting : MonoBehaviour
         reloadSpeed = gun.reloadSpeed;
         projectileCount = gun.projectileCount;
         spread = gun.spread;
+        knockback = gun.knockback;
         ammoText.text = mag.ToString(); //set up ammo counter
 
     }

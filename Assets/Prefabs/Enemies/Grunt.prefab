@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 4944325715541125582}
   - component: {fileID: 4944325715541125583}
   - component: {fileID: 4944325715541125584}
+  - component: {fileID: -5006646915723370705}
+  - component: {fileID: -9156708717238151857}
   m_Layer: 0
   m_Name: Grunt
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +104,7 @@ MonoBehaviour:
   enemy: {fileID: 11400000, guid: fe4b7f1a5c6737c4393bc37e9343a12e, type: 2}
   health: 0
   damage: 0
+  knockbackResistance: 0
 --- !u!61 &4944325715541125584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,3 +131,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &-5006646915723370705
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944325715541125580}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-9156708717238151857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944325715541125580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8a663ef86a77e49ba0bdb7c07a0f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1

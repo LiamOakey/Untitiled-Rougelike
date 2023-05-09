@@ -6,11 +6,13 @@ public class Bullet : MonoBehaviour
 {
     float damage;
     float pierce;
+    float knockback;
     // Start is called before the first frame update
     void Start()
     {
         damage = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().damage;
         pierce = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().pierce;
+        knockback = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().knockback;
         Invoke("destroy", 2f);
     }
 
@@ -19,9 +21,9 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log(damage);
+
         if(other.gameObject.tag == "Enemy"){
-            other.GetComponent<EnemyBehavoir>().takeDamage(damage);
+            other.GetComponent<EnemyBehavoir>().takeDamage(damage, knockback);
             if(pierce == 1){
                 destroy();
             }

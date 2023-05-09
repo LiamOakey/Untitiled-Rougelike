@@ -11,5 +11,6 @@ public class GunData : ScriptableObject{
     public float reloadSpeed;
     public int projectileCount;
     public float spread;
+    public float knockback;
 
 }
