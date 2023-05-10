@@ -15,7 +15,7 @@ MonoBehaviour:
   damage: 20
   fireRate: 2.5
   bulletSpeed: 15
-  pierce: 2
+  pierce: 1
   mag: 18
   reloadSpeed: 1
   projectileCount: 1

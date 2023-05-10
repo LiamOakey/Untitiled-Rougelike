@@ -5,6 +5,7 @@ using UnityEngine;
 public class GruntMovement : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator animator;
     bool canMove = true;
     public float speed = 1f;
     float maxSpeed; // set equal to speed
@@ -13,18 +14,24 @@ public class GruntMovement : MonoBehaviour
 
     private void Awake() {
         maxSpeed = speed;
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update() {
         float xDirection;
         float yDirection;
+
         if(canMove){
+            
+           
 
             //speed lowers over time, before reaching zero and reseting
-            if(speed > 0){
-                speed-= 0.01f;
+            if(speed > 0.01){
+                speed-= 0.005f;
+                animator.SetFloat("Speed", 1f);
             } else{
-                Invoke("resetSpeed", 0.5f);
+                Invoke("resetSpeed", 0.3f);
+                animator.SetFloat("Speed", -1f);
             }
 
             Transform enemyPosition = gameObject.GetComponent<Transform>();
@@ -32,6 +39,9 @@ public class GruntMovement : MonoBehaviour
 
             //Check if playerPosition exists
             if(playerPosition){
+                Vector2 direction = (playerPosition.position - transform.position).normalized;
+                enemyPosition.Translate(direction* speed *  Time.deltaTime);
+                /*
                 //determine x velocity
                 if(playerPosition.position.x > enemyPosition.position.x){
                     xDirection = 1;
@@ -47,7 +57,7 @@ public class GruntMovement : MonoBehaviour
                 }
 
                 enemyPosition.Translate(new Vector2(xDirection * speed, yDirection * speed)* Time.deltaTime);
-
+                */
             }
 
             
