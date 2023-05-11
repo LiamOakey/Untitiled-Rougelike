@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoText: {fileID: 1938084883}
-  gun: {fileID: 11400000, guid: 2e2c80ef6d6c1234281431a2174f1f2c, type: 2}
+  gun: {fileID: 11400000, guid: 46af624c2b4ebb748aa6e002130409e4, type: 2}
   damage: 0
   pierce: 0
   knockback: 0

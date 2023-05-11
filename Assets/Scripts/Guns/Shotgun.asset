@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a114d6dd010f8b47ba87c12c7a8932c, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  damage: 8
+  damage: 15
   fireRate: 0.75
   bulletSpeed: 15
   pierce: 1
   mag: 5
   reloadSpeed: 3
-  projectileCount: 8
+  projectileCount: 9
   spread: 0.2
   knockback: 5

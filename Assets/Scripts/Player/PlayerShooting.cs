@@ -85,7 +85,12 @@ public class PlayerShooting : MonoBehaviour
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity); // Spawn a new projectile at the fire point
         direction.y += shotSpread;
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed; // Set the velocity of the projectile to be in the direction of the mouse position
+        
+        shotSpread = Random.Range(-spread,spread);
+        direction.x += shotSpread;
+
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        projectile.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
     }
 
     void shotReset(){

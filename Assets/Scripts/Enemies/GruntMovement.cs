@@ -18,9 +18,6 @@ public class GruntMovement : MonoBehaviour
     }
 
     private void Update() {
-        float xDirection;
-        float yDirection;
-
         if(canMove){
             
            
@@ -28,6 +25,8 @@ public class GruntMovement : MonoBehaviour
             //speed lowers over time, before reaching zero and reseting
             if(speed > 0.01){
                 speed-= 0.005f;
+
+                //Sets animation
                 animator.SetFloat("Speed", 1f);
             } else{
                 Invoke("resetSpeed", 0.3f);
@@ -41,23 +40,6 @@ public class GruntMovement : MonoBehaviour
             if(playerPosition){
                 Vector2 direction = (playerPosition.position - transform.position).normalized;
                 enemyPosition.Translate(direction* speed *  Time.deltaTime);
-                /*
-                //determine x velocity
-                if(playerPosition.position.x > enemyPosition.position.x){
-                    xDirection = 1;
-                } else{
-                    xDirection = -1;
-                }
-
-                //determine y velocity
-                if(playerPosition.position.y > enemyPosition.position.y){
-                    yDirection = 1;
-                }else{
-                    yDirection = -1;
-                }
-
-                enemyPosition.Translate(new Vector2(xDirection * speed, yDirection * speed)* Time.deltaTime);
-                */
             }
 
             
