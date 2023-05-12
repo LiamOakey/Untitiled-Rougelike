@@ -21,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
     float spread; //Random variation on the y axis for shots
 
     public bool canFire = true;
+    bool canReload = true;
     public Transform firePoint; // The position where the projectile will be spawned
     public GameObject projectilePrefab; // The projectile prefab to be spawned
 
@@ -47,16 +48,21 @@ public class PlayerShooting : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(0) && canFire) // Check if the fire button (left-click) is being pressed/held
+        if(Input.GetKeyDown("r") && canReload){
+            reload();
+        }
+
+        if (Input.GetMouseButton(0) && canFire && canReload) // Check if the fire button (left-click) is being pressed/held
         {
 
             if(currentAmmo>0){
                 Fire(); // Call the Shoot method to spawn a projectile
                 canFire = false;
-                Invoke("shotReset", fireRate); 
+                Invoke("shotReset", fireRate);
             }else{
-                canFire = false;
-                Invoke("reload",reloadSpeed);
+                if(canReload){
+                    reload();
+                }
             }
             
         }
@@ -84,13 +90,13 @@ public class PlayerShooting : MonoBehaviour
         Vector2 direction = (worldPosition - firePoint.position).normalized; // Calculate the direction from the fire point to the mouse position
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity); // Spawn a new projectile at the fire point
+        projectile.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
         direction.y += shotSpread;
         
         shotSpread = Random.Range(-spread,spread);
         direction.x += shotSpread;
 
         projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-        projectile.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
     }
 
     void shotReset(){
@@ -98,6 +104,14 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void reload(){
+        canReload = false;
+        canFire = false;
+        Invoke("load",reloadSpeed);
+        ammoText.text = "0";
+    }
+
+    void load(){
+        canReload = true;
         currentAmmo = mag;
         canFire = true;
         ammoText.text = currentAmmo.ToString(); //update ammo counter
