@@ -5,14 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Tile
+  - EnemySpawn
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - tiles
   - Water
   - UI
-  - 
+  - bullets
   - 
   - 
   - 
@@ -39,6 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: baseTiles
+    uniqueID: 3024963653
+    locked: 0
+  - name: wallTiles
+    uniqueID: 3359690915
+    locked: 0
+  - name: decoration
+    uniqueID: 3806260305
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -19,5 +19,5 @@ MonoBehaviour:
   mag: 30
   reloadSpeed: 2
   projectileCount: 1
-  spread: 0.09
-  knockback: 0
+  spread: 0.05
+  knockback: 1

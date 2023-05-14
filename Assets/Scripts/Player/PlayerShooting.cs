@@ -90,11 +90,12 @@ public class PlayerShooting : MonoBehaviour
         Vector2 direction = (worldPosition - firePoint.position).normalized; // Calculate the direction from the fire point to the mouse position
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity); // Spawn a new projectile at the fire point
-        projectile.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
         direction.y += shotSpread;
         
         shotSpread = Random.Range(-spread,spread);
         direction.x += shotSpread;
+
+        projectile.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
 
         projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
     }
