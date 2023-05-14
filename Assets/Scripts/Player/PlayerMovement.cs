@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void movementHandler(){
         if(rb.velocity.x < 0){
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        } else{
+        } else if(rb.velocity.x > 0){
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
         float movementX = Input.GetAxisRaw("Horizontal");
