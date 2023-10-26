@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class PlayerShooting : MonoBehaviour
 {
     public TextMeshProUGUI ammoText;
+    public GunData minigun;
     // scriptable objects
     public GunData gun; //Gun that the character is using
-    float fireRate; //how many times the character will shoot per second
+    static float fireRate; //how many times the character will shoot per second
     float bulletSpeed; // how fast bullet moves
     public float damage; 
     public int pierce; //How many enemies shots will go through
@@ -52,6 +53,10 @@ public class PlayerShooting : MonoBehaviour
             reload();
         }
 
+        if(Input.GetKeyDown("1")){
+            weaponSwap();
+        }
+
     }
 
     void FixedUpdate(){
@@ -69,6 +74,8 @@ public class PlayerShooting : MonoBehaviour
             }
             
         }
+
+
     }
 
     //Fire will be called when mouse is clicked, to manage how many time shoot will be called
@@ -87,26 +94,28 @@ public class PlayerShooting : MonoBehaviour
 
         Vector3 mousePosition = Input.mousePosition; // Get the mouse position in screen coordinates
         
-        //Shot spread
-        float shotSpread = Random.Range(-spread,spread);
+
 
         mousePosition.z = -mainCamera.transform.position.z; // Set the z-coordinate of the mouse position to be the same as the camera's z-coordinate
 
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // Convert the screen coordinates to world coordinates
 
         Vector2 direction = (worldPosition - firePoint.position).normalized; // Calculate the direction from the fire point to the mouse position
+        
+        /*Shot spread is based on the weapons "spread" value, spread works as a displacement
+         of the mouse on the x and y axis, with the distance being a random number between 
+        the positive and negative spread value */
+
+        float shotSpread = Random.Range(-spread,spread);
         direction.x += shotSpread;
+        shotSpread = Random.Range(-spread,spread);
         direction.y += shotSpread;
         
-        //Bullet rotation
-        float bulletRotation =  Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
 
-        projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity); // Spawn a new projectile at the fire point
-        projectile.GetComponent<Rigidbody2D>().rotation = bulletRotation;
 
-        
-        shotSpread = Random.Range(-spread,spread);
-
+        // Spawn a new projectile at the fire point
+        projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        projectile.GetComponent<Rigidbody2D>().rotation = GunRotation.angle;
 
         projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
     }
@@ -127,6 +136,30 @@ public class PlayerShooting : MonoBehaviour
         currentAmmo = mag;
         canFire = true;
         ammoText.text = currentAmmo.ToString(); //update ammo counter
+    }
+
+    void weaponSwap(){
+        gun = minigun;
+
+        damage = gun.damage;
+        pierce = gun.pierce;
+        bulletSpeed = gun.bulletSpeed;
+        fireRate = gun.fireRate;
+        fireRate = 1/fireRate;
+        mag = gun.mag;
+        currentAmmo = mag;
+        reloadSpeed = gun.reloadSpeed;
+        projectileCount = gun.projectileCount;
+        spread = gun.spread;
+        knockback = gun.knockback;
+        ammoText.text = mag.ToString(); //set up ammo counter
+
+        Debug.Log("swapped");
+    }
+
+    public static void setFireRate(float change){
+        fireRate *= change;
+        Debug.Log(fireRate);
     }
 
 

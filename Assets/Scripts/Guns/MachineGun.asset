@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a114d6dd010f8b47ba87c12c7a8932c, type: 3}
   m_Name: MachineGun
   m_EditorClassIdentifier: 
-  damage: 8
+  damage: 12
   fireRate: 7
   bulletSpeed: 15
   pierce: 1
