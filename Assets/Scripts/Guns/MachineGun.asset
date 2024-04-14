@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MachineGun
   m_EditorClassIdentifier: 
   damage: 12
-  fireRate: 7
+  fireRate: 0.2
   bulletSpeed: 15
   pierce: 1
   mag: 30

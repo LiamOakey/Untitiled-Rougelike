@@ -5,26 +5,30 @@ using TMPro;
 
 public class EnemyBehavoir : MonoBehaviour
 {
+    new public ParticleSystem particleSystem;
     [SerializeField] private GameObject floatingDamageNumber;
-    public Enemy enemy;
+    public Enemy enemyType;
     public float health;
     public float damage;
     public float knockbackResistance; //number between 0-1, that indicates the percentage of knockback taken
     // knockbackResistance of 0.2 means the enemy only takes 20% knockback
     Rigidbody2D rb;
 
+    // Assign values from enemy type
     private void Awake() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         gameObject.tag = "Enemy";
-        health = enemy.health;
-        damage = enemy.damage;
-        knockbackResistance = enemy.knockbackResistance;
+        health = enemyType.health;
+        damage = enemyType.damage;
+        knockbackResistance = enemyType.knockbackResistance;
     }
 
     public void takeDamage(float incomingDamage, float knockback){
+        particleSystem.Play();
         health-=incomingDamage;
         ShowDamage(incomingDamage.ToString());
          takeKnockback(knockback);
+         particleSystem.Play();
         if(health <=0 ){
             die();
         }

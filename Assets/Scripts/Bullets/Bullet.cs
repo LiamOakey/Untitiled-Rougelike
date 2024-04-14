@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    
     float damage;
     float pierce;
     float knockback;
     // Start is called before the first frame update
     void Start()
     {
-        damage = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().damage;
-        pierce = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().pierce;
-        knockback = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().knockback;
+        damage = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().gun.damage;
+        pierce = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().gun.pierce;
+        knockback = GameObject.FindWithTag("Player").GetComponent<PlayerShooting>().gun.knockback;
         Invoke("destroy", 2f);
     }
 

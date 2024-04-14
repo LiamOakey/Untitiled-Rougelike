@@ -9,10 +9,10 @@ public class PlayerHealth : MonoBehaviour
     bool invincible = false;
 
     public TextMeshProUGUI healthText;
-    BoxCollider2D collider;
+    new BoxCollider2D collider;
 
     private void Awake() {
-        collider = GetComponent<BoxCollider2D>();
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
     void takeDamage(float damage){

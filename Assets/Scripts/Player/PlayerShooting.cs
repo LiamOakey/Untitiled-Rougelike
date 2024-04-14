@@ -10,16 +10,8 @@ public class PlayerShooting : MonoBehaviour
     public GunData minigun;
     // scriptable objects
     public GunData gun; //Gun that the character is using
-    static float fireRate; //how many times the character will shoot per second
-    float bulletSpeed; // how fast bullet moves
-    public float damage; 
-    public int pierce; //How many enemies shots will go through
-    public float knockback; //amount of knockback delt to enemies
-    int mag; //Max Ammo
-    int currentAmmo; 
-    int projectileCount; // Amount of projectiles fired per shot
-    float reloadSpeed; // time in seconds
-    float spread; //Random variation on the y axis for shots
+    private int currentAmmo;
+
 
     public bool canFire = true;
     bool canReload = true;
@@ -29,21 +21,11 @@ public class PlayerShooting : MonoBehaviour
     private Camera mainCamera; // The main camera in the scene
 
     void Awake()
-    { 
-        damage = gun.damage;
-        pierce = gun.pierce;
-        bulletSpeed = gun.bulletSpeed;
-        fireRate = gun.fireRate;
-        fireRate = 1/fireRate;
-        mainCamera = Camera.main; // Get the main camera in the scene
-        mag = gun.mag;
-        currentAmmo = mag;
-        reloadSpeed = gun.reloadSpeed;
-        projectileCount = gun.projectileCount;
-        spread = gun.spread;
-        knockback = gun.knockback;
-        ammoText.text = mag.ToString(); //set up ammo counter
-
+    {
+        mainCamera = Camera.main;
+        currentAmmo = gun.mag;
+        ammoText.text = gun.mag.ToString(); //set up ammo counter
+        currentAmmo = gun.mag;
     }
 
     void Update()
@@ -66,7 +48,7 @@ public class PlayerShooting : MonoBehaviour
             if(currentAmmo>0){
                 Fire(); // Call the Shoot method to spawn a projectile
                 canFire = false;
-                Invoke("shotReset", fireRate);
+                Invoke("shotReset", gun.fireRate);
             }else{
                 if(canReload){
                     reload();
@@ -82,7 +64,7 @@ public class PlayerShooting : MonoBehaviour
     void Fire(){
         currentAmmo--;
         ammoText.text = currentAmmo.ToString();//update ammo counter
-        for(int i=0; i<projectileCount;i++){
+        for(int i=0; i<gun.projectileCount;i++){
             Shoot();
         }
     }
@@ -94,8 +76,6 @@ public class PlayerShooting : MonoBehaviour
 
         Vector3 mousePosition = Input.mousePosition; // Get the mouse position in screen coordinates
         
-
-
         mousePosition.z = -mainCamera.transform.position.z; // Set the z-coordinate of the mouse position to be the same as the camera's z-coordinate
 
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mousePosition); // Convert the screen coordinates to world coordinates
@@ -106,9 +86,9 @@ public class PlayerShooting : MonoBehaviour
          of the mouse on the x and y axis, with the distance being a random number between 
         the positive and negative spread value */
 
-        float shotSpread = Random.Range(-spread,spread);
+        float shotSpread = Random.Range(-gun.spread,gun.spread);
         direction.x += shotSpread;
-        shotSpread = Random.Range(-spread,spread);
+        shotSpread = Random.Range(-gun.spread,gun.spread);
         direction.y += shotSpread;
         
 
@@ -117,7 +97,7 @@ public class PlayerShooting : MonoBehaviour
         projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody2D>().rotation = GunRotation.angle;
 
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * gun.bulletSpeed;
     }
 
     void shotReset(){
@@ -127,13 +107,13 @@ public class PlayerShooting : MonoBehaviour
     void reload(){
         canReload = false;
         canFire = false;
-        Invoke("load",reloadSpeed);
+        Invoke("load",gun.reloadSpeed);
         ammoText.text = "0";
     }
 
     void load(){
         canReload = true;
-        currentAmmo = mag;
+        currentAmmo = gun.mag;
         canFire = true;
         ammoText.text = currentAmmo.ToString(); //update ammo counter
     }
@@ -141,26 +121,7 @@ public class PlayerShooting : MonoBehaviour
     void weaponSwap(){
         gun = minigun;
 
-        damage = gun.damage;
-        pierce = gun.pierce;
-        bulletSpeed = gun.bulletSpeed;
-        fireRate = gun.fireRate;
-        fireRate = 1/fireRate;
-        mag = gun.mag;
-        currentAmmo = mag;
-        reloadSpeed = gun.reloadSpeed;
-        projectileCount = gun.projectileCount;
-        spread = gun.spread;
-        knockback = gun.knockback;
-        ammoText.text = mag.ToString(); //set up ammo counter
-
         Debug.Log("swapped");
     }
-
-    public static void setFireRate(float change){
-        fireRate *= change;
-        Debug.Log(fireRate);
-    }
-
 
 }
