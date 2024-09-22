@@ -42,6 +42,7 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void FixedUpdate(){
+        Debug.Log(canFire);
         if (Input.GetMouseButton(0) && canFire && canReload) // Check if the fire button (left-click) is being pressed/held
         {
 
@@ -71,7 +72,6 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        
         GameObject projectile; //Bullet
 
         Vector3 mousePosition = Input.mousePosition; // Get the mouse position in screen coordinates

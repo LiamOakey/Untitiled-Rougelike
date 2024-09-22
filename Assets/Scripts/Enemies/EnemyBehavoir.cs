@@ -5,7 +5,6 @@ using TMPro;
 
 public class EnemyBehavoir : MonoBehaviour
 {
-    new public ParticleSystem particleSystem;
     [SerializeField] private GameObject floatingDamageNumber;
     public Enemy enemyType;
     public float health;
@@ -24,11 +23,9 @@ public class EnemyBehavoir : MonoBehaviour
     }
 
     public void takeDamage(float incomingDamage, float knockback){
-        particleSystem.Play();
         health-=incomingDamage;
         ShowDamage(incomingDamage.ToString());
          takeKnockback(knockback);
-         particleSystem.Play();
         if(health <=0 ){
             die();
         }
