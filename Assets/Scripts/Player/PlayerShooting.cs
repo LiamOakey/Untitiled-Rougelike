@@ -42,7 +42,6 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void FixedUpdate(){
-        Debug.Log(canFire);
         if (Input.GetMouseButton(0) && canFire && canReload) // Check if the fire button (left-click) is being pressed/held
         {
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    
+
     float damage;
     float pierce;
     float knockback;
@@ -17,20 +17,32 @@ public class Bullet : MonoBehaviour
         Invoke("destroy", 2f);
     }
 
-    void destroy(){
+    void destroy()
+    {
         Destroy(gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D other) {
-
-        if(other.gameObject.tag == "Enemy"){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
             other.GetComponent<EnemyBehavoir>().takeDamage(damage, knockback);
-            if(pierce == 1){
+            if (pierce == 1)
+            {
                 destroy();
             }
             pierce--;
         }
+
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Dont destroy the bullet if it hits the player's hitbox
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            destroy();
+        }
+        
+    }
 }
