@@ -8,6 +8,8 @@ public class floorGenerator : MonoBehaviour
     public GameObject startingRoom;
     public GameObject room2;
     public GameObject room3;
+    public GameObject roomBarrier;
+
     public Grid grid;
 
     // Start is called before the first frame update
@@ -16,9 +18,8 @@ public class floorGenerator : MonoBehaviour
         startingRoom = Instantiate(room2, grid.WorldToCell(new Vector2(20, 20)), Quaternion.identity);
         startingRoom.transform.SetParent(grid.transform, false);
 
-        GameObject placedRoom = generateRoom(startingRoom, 1, room2);
-        generateRoom(placedRoom, 1, room3);
-        Debug.Log(placedRoom.transform.position);
+        GameObject currentRoom = generateRoom(startingRoom, 1, room3);
+        GameObject PreviousRoom = currentRoom;
     }
 
     // Door represents the direction the room should connect on, reletive to the old room
@@ -26,18 +27,17 @@ public class floorGenerator : MonoBehaviour
     // 1 == Right,
     // 2 == down,
     // 3 == left
-    GameObject generateRoom(GameObject currentRoom, int door, GameObject newRoom)
+    GameObject generateRoom(GameObject room, int door, GameObject newRoom)
     {
-        Transform currentDoor = getDoorTransform(currentRoom, door);
+        Transform currentDoor = getDoorTransform(room, door);
 
         if (currentDoor != null)
         {
             Vector3 newRoomSpawnPoint = grid.WorldToCell(currentDoor.position);
-            Debug.Log("HI" + newRoomSpawnPoint);
-            //Vector3 newRoomConnectorDoor = grid.WorldToCell(getDoorTransform(newRoom, (door + 2) % 4).);
             Vector3 offset = grid.WorldToCell(getDoorTransform(newRoom,(door+2)%4).localPosition);
             GameObject newRoomPlaced = Instantiate(newRoom, grid.WorldToCell(newRoomSpawnPoint - offset), Quaternion.identity);
             newRoomPlaced.transform.SetParent(grid.transform, false);
+            placeBarrierOnEmptyDoor(newRoomPlaced, 0, 3);
             return newRoomPlaced;
         }
         return null;
@@ -59,8 +59,33 @@ public class floorGenerator : MonoBehaviour
             return room.transform.Find("Doors").Find("LeftDoor");
 
         }
-
         return null;
+    }
+
+    // Takes the two doors the room is connected on
+    void placeBarrierOnEmptyDoor(GameObject room, int door1, int door2){ 
+        if(door1 != 0 && door2 != 0)
+        {
+            GameObject barrier = Instantiate(roomBarrier, getDoorTransform(room, 0).localPosition, Quaternion.Euler(0, 0, 90));
+            barrier.transform.SetParent(room.transform.Find("Doors").transform, false);
+        }
+
+        if (door1 != 1 && door2 != 1)
+        {
+            GameObject barrier = Instantiate(roomBarrier, getDoorTransform(room, 1).localPosition, Quaternion.identity);
+            barrier.transform.SetParent(room.transform.Find("Doors").transform, false);
+        }
+        if (door1 != 2 && door2 != 2)
+        {
+            GameObject barrier = Instantiate(roomBarrier, getDoorTransform(room, 2).localPosition, Quaternion.Euler(0, 0, 90));
+            barrier.transform.SetParent(room.transform.Find("Doors").transform, false);
+        }
+        if (door1 != 3 && door2 != 3)
+        {
+            GameObject barrier = Instantiate(roomBarrier, getDoorTransform(room, 3).localPosition, Quaternion.identity);
+            barrier.transform.SetParent(room.transform.Find("Doors").transform, false);
+        }
+
     }
 
 }
