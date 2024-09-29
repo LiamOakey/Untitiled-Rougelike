@@ -779,10 +779,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd64695cfc9c64541b39fb96503e50b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room: {fileID: 2495421638035937705, guid: 35a3cea1fecfead48960ca8cf0e17458, type: 3}
+  roomPrefabs:
+  - {fileID: 2495421638035937705, guid: 35a3cea1fecfead48960ca8cf0e17458, type: 3}
+  - {fileID: 2495421638035937705, guid: daf1e87503198464f96ea08f59de365d, type: 3}
   startingRoom: {fileID: 2495421638035937705, guid: 35a3cea1fecfead48960ca8cf0e17458, type: 3}
-  room2: {fileID: 2495421638035937705, guid: 35a3cea1fecfead48960ca8cf0e17458, type: 3}
-  room3: {fileID: 2495421638035937705, guid: daf1e87503198464f96ea08f59de365d, type: 3}
+  roomBarrier: {fileID: 496873963057788499, guid: 3502737cdcddd46409dd93cdd14a7afb, type: 3}
   grid: {fileID: 368299724}
 --- !u!4 &800033960
 Transform:
@@ -939,8 +940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoText: {fileID: 1938084883}
-  minigun: {fileID: 11400000, guid: 46af624c2b4ebb748aa6e002130409e4, type: 2}
-  gun: {fileID: 11400000, guid: 46af624c2b4ebb748aa6e002130409e4, type: 2}
+  minigun: {fileID: 11400000, guid: d9800b195bc792d40b8ea07f1d36270d, type: 2}
+  gun: {fileID: 11400000, guid: d9800b195bc792d40b8ea07f1d36270d, type: 2}
   canFire: 1
   firePoint: {fileID: 1725468469}
   projectilePrefab: {fileID: 7609583386130400276, guid: bed027eb9804f324491ab7b9e06618bd, type: 3}
